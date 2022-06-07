@@ -2,6 +2,7 @@ const mineflayer = require('mineflayer')
 const phrases = ['Привет, я бот', 'Я бот, разработанный Seeroy и Zedikon', 'ты ботяра а я бот'];
 
 console.log("Starting bot");
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -15,15 +16,19 @@ const bot = mineflayer.createBot({
 })
 
 bot.on('chat', function (username, message) {
-  console.log(message);
+  console.log(username, ":", message);
 })
 
 bot.once('spawn', () => {
-  bot.chat("/login 123123");
   console.log("I`m spawned and ready!");
-  send = phrases[getRandomInt(0,2)];
-  bot.chat("/say " + send);
-  console.log("Im sending:", send);
+  setTimeout(function () {
+    bot.chat("/login 123123");
+    setTimeout(function () {
+      send = phrases[getRandomInt(0, 2)];
+      bot.chat("/say " + send);
+      console.log("Im sending:", send);
+    }, 3000);
+  }, 2000);
 })
 
 // Log errors and kick reasons:
