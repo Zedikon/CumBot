@@ -1,0 +1,2 @@
+mineflayer
+https://github.com/Etiaro/mineflayer-antiafk
