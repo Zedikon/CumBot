@@ -1,7 +1,8 @@
 const mineflayer = require('mineflayer')
 const phrases = ['Привет, я бот', 'Я бот, разработанный Seeroy и Zedikon', 'ты ботяра а я бот'];
+const antiafk = require("mineflayer-antiafk");
 
-console.log("Starting bot");
+console.log("Starting CumBot");
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -15,12 +16,16 @@ const bot = mineflayer.createBot({
   version: "1.12.2"
 })
 
+bot.loadPlugin(antiafk);
+
 bot.on('chat', function (username, message) {
   console.log(username, ":", message);
 })
 
 bot.once('spawn', () => {
   console.log("I`m spawned and ready!");
+  bot.afk.setOptions({ fishing: false });
+  bot.afk.start();
   setTimeout(function () {
     bot.chat("/login 123123");
     setTimeout(function () {
@@ -31,6 +36,9 @@ bot.once('spawn', () => {
   }, 2000);
 })
 
-// Log errors and kick reasons:
+bot.on("health", () => {
+    if (bot.health < 5) bot.afk.stop();
+  });
+
 bot.on('kicked', console.log)
 bot.on('error', console.log)
