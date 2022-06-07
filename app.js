@@ -25,7 +25,7 @@ bot.once('spawn', () => {
     bot.chat("/login 123123");
     setTimeout(function () {
       send = phrases[getRandomInt(0, 2)];
-      bot.chat("/say " + send);
+      bot.chat(send);
       console.log("Im sending:", send);
     }, 3000);
   }, 2000);
